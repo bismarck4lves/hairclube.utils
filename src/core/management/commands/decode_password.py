@@ -1,0 +1,90 @@
+from django.core.management.base import BaseCommand
+from django.db.transaction import atomic
+from core import models
+from ...utils.auth import decode
+import re
+
+
+class Command(BaseCommand):
+
+    @atomic
+    def handle(self, *args, **options):
+
+        # username = input("Digite o nome de usuario: ").strip()
+        # context = int(input("Qual contexto? [1: salao / 2: client]").strip())
+
+        usernames = [
+            "clazynha@hotmail.com",
+            "simonequeiroz_lima@hotmail.com",
+            "karinea838@gmail.com",
+            "alinequeirozm@gmail.com",
+            "mariliamatias26@gmail.com",
+            "priscila.diniz14@gmail.com",
+            "sarahsilvasilveriio26@gmail.com",
+            "dudareisfontesdr@hotmail.com",
+            "barbaramagalhaes-1@hotmail.com",
+            "270307soso@gmail.com",
+            "Nandacavalcantee07@gmail.com",
+        ]
+
+        for username in usernames:
+            context = 2
+
+            type = self.username_type(username)
+
+            if type == "invalid":
+                return "Tipo de usuario nao reconhecido"
+
+            password = ""
+            if context == 1:
+                password = self.get_user_salon(username, type)
+                if not password:
+                    print("USUARIO NAO ENCONTRADO")
+                    return
+            if context == 2:
+                password = self.get_user_clint(username, type)
+                if not password:
+                    print("USUARIO NAO ENCONTRADO")
+                    return
+
+            print(f"username: {username}")
+            print(f"username: {decode(password)}")
+            print("="* 20)
+
+    def get_user_salon(self, username, type):
+        user = None
+
+        if type == "email":
+            user = models.SalonUser.objects.filter(email=username).first()
+
+        if type == "cpf":
+            user = models.SalonUser.objects.filter(cpf=username)
+
+        return user.password
+
+    def get_user_clint(self, username, type):
+        user = None
+
+        if type == "email":
+            user = models.Client.objects.filter(email=username).first()
+
+        if type == "cpf":
+            user = models.Client.objects.filter(cpf=username)
+        return user.password
+
+    def username_type(self, username: str) -> str:
+        if not username:
+            return "invalid"
+
+        username = username.strip()
+
+        email_regex = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+        if re.match(email_regex, username):
+            return "email"
+
+        numbers = re.sub(r"\D", "", username)
+
+        if len(numbers) == 11:
+            return "cpf"
+
+        return "invalid"

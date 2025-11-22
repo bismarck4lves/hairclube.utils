@@ -1,0 +1,17 @@
+asgiref==3.10.0
+Django==5.2.8
+djangorestframework==3.16.1
+inquirerpy==0.3.4
+mysqlclient==2.2.7
+numpy==2.3.5
+pandas==2.3.3
+pfzy==0.3.4
+prompt_toolkit==3.0.52
+pycryptodome==3.23.0
+PyMySQL==1.1.2
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+sqlparse==0.5.3
+tzdata==2025.2
+wcwidth==0.2.14
