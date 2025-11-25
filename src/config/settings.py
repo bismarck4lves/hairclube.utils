@@ -60,7 +60,7 @@ DATABASES = {
         # 'NAME': 'hairclubbr-dev',
         'USER': 'tuahhxuiua',
         'PASSWORD': 'Mzs3$yUMMzdHsKnt',
-        'HOST': 'hair-club-server.mysql.database.azure.com',
+        'HOST': 'hair-club-server-mgr.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
             "charset": "utf8mb4",

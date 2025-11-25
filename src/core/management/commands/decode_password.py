@@ -10,22 +10,9 @@ class Command(BaseCommand):
     @atomic
     def handle(self, *args, **options):
 
-        # username = input("Digite o nome de usuario: ").strip()
-        # context = int(input("Qual contexto? [1: salao / 2: client]").strip())
+        username = input("Digite o nome de usuario: ").strip()
 
-        usernames = [
-            "clazynha@hotmail.com",
-            "simonequeiroz_lima@hotmail.com",
-            "karinea838@gmail.com",
-            "alinequeirozm@gmail.com",
-            "mariliamatias26@gmail.com",
-            "priscila.diniz14@gmail.com",
-            "sarahsilvasilveriio26@gmail.com",
-            "dudareisfontesdr@hotmail.com",
-            "barbaramagalhaes-1@hotmail.com",
-            "270307soso@gmail.com",
-            "Nandacavalcantee07@gmail.com",
-        ]
+        usernames = [username]
 
         for username in usernames:
             context = 2

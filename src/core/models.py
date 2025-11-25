@@ -151,3 +151,28 @@ class SalonUser(models.Model):
     class Meta:
         db_table = "CadEstabelecimentoUsuarios"
         managed = False
+
+
+class Plan(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        db_column="Id"
+    )
+    active = models.IntegerField(
+        db_column="Ativo"
+    )
+    name = models.TextField(
+        db_column="Nome"
+    )
+    cycles = models.IntegerField(
+        db_column="Ciclo"
+    )
+    value = models.DecimalField(
+        db_column="Valor",
+        decimal_places=2,
+        max_digits=10
+    )
+
+    class Meta:
+        db_table = "cadplanos"
+        managed = False
