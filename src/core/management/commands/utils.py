@@ -24,6 +24,11 @@ def read_csv_file(csv_path):
     ).to_dict(orient="records")
 
 
+def get_docs_file_path(path):
+    base_path = settings.BASE_DIR.parent / "docs/"
+    return Path(f"{base_path}/{path}")
+
+
 def chose_file(path):
     base_path = settings.BASE_DIR.parent / "docs/"
     folder = Path(f"{base_path}/{path}")
