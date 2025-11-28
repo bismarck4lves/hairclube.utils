@@ -5,7 +5,7 @@ from tabulate import tabulate
 from .utils import cancel_all_plans
 
 CANCELED_STATUS = 10
-UPGRADE_STATUS = 2
+UPGRADE_STATUS = 1
 
 
 class Command(BaseCommand):

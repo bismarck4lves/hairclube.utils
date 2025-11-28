@@ -53,7 +53,9 @@ class Command(BaseCommand):
         smtp.send_daily_report(
             to=[
                 "isabele.gomes@hairclubbrasil.com.br",
-                "ana.kelly@hairclubbrasil.com.br"
+                "ana.kelly@hairclubbrasil.com.br",
+                "brigida.rodrigues@hairclubbrasil.com.br",
+                "beatrice.rodrigues@hairclubbrasil.com.br",
             ],
             files=paths,
             message="Segue o relatório diário gerado automaticamente."
