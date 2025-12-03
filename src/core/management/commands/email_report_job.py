@@ -37,7 +37,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.etl_process = EtlUtil()
         smtp = AuthenticationSMTP()
-        folder_data = self.get_current_date_folder()
+        folder_date = self.get_current_date_folder()
         data = [
             "relatorio_contas",
             "relatorio_cupons",
@@ -47,7 +47,7 @@ class Command(BaseCommand):
         ]
         paths = []
         for file in data:
-            path = self.handle_evaluation(file, file, folder_data)
+            path = self._create_report_file(file, file, folder_date)
             paths.append(path)
 
         smtp.send_daily_report(
@@ -62,14 +62,14 @@ class Command(BaseCommand):
         )
         print("Emails enviados com sucesso")
 
-    def handle_evaluation(self, file_sql, file_name, folder_data):
+    def _create_report_file(self, file_sql, file_name, folder_date):
         path = get_docs_file_path(f"/report_queries/{file_sql}.sql")
         query = self.get_query(path)
         data = self.etl_process.extract(query)
         return self.export_to_excel(
             data=data,
-            output_path=get_docs_file_path(f"report_email/{folder_data}"),
-            file_name=f"{file_name}.xlsx"
+            output_path=get_docs_file_path(f"report_email/{folder_date}"),
+            file_name=f"{file_name}_{folder_date}.xlsx"
         )
 
     def get_query(self, path):
@@ -86,6 +86,7 @@ class Command(BaseCommand):
         file_path = os.path.join(output_path, file_name)
         df = pd.DataFrame(data)
         df.to_excel(file_path, index=False, engine="openpyxl")
+        print(file_name)
         return file_path
 
     def get_current_date_folder(self):

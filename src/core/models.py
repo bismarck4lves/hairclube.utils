@@ -35,9 +35,9 @@ class Client(models.Model):
 
 class Schedule(models.Model):
 
-    id = models.IntegerField(
-        db_column="Id",
-        primary_key=True
+    id = models.AutoField(
+        primary_key=True,
+        db_column="Id"
     )
     client_id = models.IntegerField(
         db_column="Fk_CadClientes",

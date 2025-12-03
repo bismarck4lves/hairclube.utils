@@ -10,17 +10,17 @@ class Command(BaseCommand):
     @atomic
     def handle(self, *args, **options):
 
-        username = input("Digite o nome de usuario: ").strip()
+        username = "JANNA_S.R@HOTMAIL.COM" #input("Digite o nome de usuario: ").strip()
 
         usernames = [username]
 
         for username in usernames:
-            context = 2
+            context = 1
 
             type = self.username_type(username)
-
-            if type == "invalid":
-                return "Tipo de usuario nao reconhecido"
+          
+            # if type == "invalid":
+            #     return "Tipo de usuario nao reconhecido"
 
             password = ""
             if context == 1:
@@ -28,22 +28,23 @@ class Command(BaseCommand):
                 if not password:
                     print("USUARIO NAO ENCONTRADO")
                     return
-            if context == 2:
-                password = self.get_user_clint(username, type)
-                if not password:
-                    print("USUARIO NAO ENCONTRADO")
-                    return
+                print(password)
+            # if context == 2:
+            #     password = self.get_user_clint(username, type)
+            #     if not password:
+            #         print("USUARIO NAO ENCONTRADO")
+            #         return
 
             print(f"username: {username}")
             print(f"username: {decode(password)}")
-            print("="* 20)
+            # print("="* 20)
 
     def get_user_salon(self, username, type):
         user = None
 
         if type == "email":
             user = models.SalonUser.objects.filter(email=username).first()
-
+            print(user)
         if type == "cpf":
             user = models.SalonUser.objects.filter(cpf=username)
 
