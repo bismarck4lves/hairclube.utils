@@ -176,3 +176,26 @@ class Plan(models.Model):
     class Meta:
         db_table = "cadplanos"
         managed = False
+
+
+class CancelPlansJob(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        db_column="Id"
+    )
+    subscription_id = models.IntegerField(
+        db_column="fk_movCadClientesAssinaturas"
+    )
+    reason = models.IntegerField(
+        db_column="fk_cadsituacaoassinaturas"
+    )
+    target_cancel_date = models.DateField(
+        db_column="data_cancelamento"
+    )
+    is_canceled = models.IntegerField(
+        db_column="cancelado"
+    )
+
+    class Meta:
+        db_table = "cancelamento_plano_jobs"
+        managed = False

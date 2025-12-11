@@ -1,3 +1,6 @@
+import re
+import math
+import unicodedata
 from core import models
 from django.utils import timezone
 from django.conf import settings
@@ -42,3 +45,50 @@ def get_file_name(path):
     data = path.split("/")
     return data[len(data)-1]
 
+
+def normalize(text: str) -> str:
+    text = unicodedata.normalize("NFD", text)
+    text = text.encode("ascii", "ignore").decode("utf-8")
+    text = text.lower()
+    text = re.sub(r"[^\w\s]", "", text)
+    return text.strip()
+
+
+def set_case(ref):
+    txt = normalize(ref)
+    if "cancelamento por inadimplencia" in txt:
+        return "canceled_by_non_payment"
+
+    if "solicitado pela cliente" in txt:
+        return "canceled_by_client"
+    return None
+
+
+def is_nan(data):
+    try:
+        if not data:
+            return True
+        if isinstance(data, float):
+            if math.isnan(data):
+                return True
+        return False
+    except Exception:
+        return True
+
+
+def is_real_email(email):
+    try:
+        if not email:
+            return False
+        if isinstance(email, float):
+            if math.isnan(email):
+                return False
+        return True
+    except Exception:
+        return False
+
+
+def get_client_by_email(email):
+    data = models.Client.objects.filter(
+        email=email
+    ).first()

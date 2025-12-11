@@ -10,7 +10,7 @@ class Command(BaseCommand):
     @atomic
     def handle(self, *args, **options):
 
-        username = "JANNA_S.R@HOTMAIL.COM" #input("Digite o nome de usuario: ").strip()
+        username = input("Digite o nome de usuario: ").strip()
 
         usernames = [username]
 
